@@ -1,0 +1,47 @@
+name: 1327 Test Suite
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  tests:
+    runs-on: ubuntu-18.04
+
+    container:
+      image: python:3.7
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: 1327
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    strategy:
+      matrix:
+        include:
+          - name: Coverage
+            command: coverage run manage.py test && codecov -X gcov
+          - name: Debug mode
+            command: python manage.py test --debug-mode
+          - name: Reverse order
+            command: python manage.py test --reverse
+
+    name: ${{ matrix.name }}
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        run: pip install -r requirements-test.txt
+      - name: Add localsettings
+        run: cp _1327/settings.py _1327/localsettings.py
+      - name: Run tests
+        run: ${{ matrix.command }}
