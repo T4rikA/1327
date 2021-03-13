@@ -39,18 +39,12 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: borales/actions-yarn@v2.0.0
         with:
-            node-version: '14'
-      - run: npm install
-      - run: npm test
-      - name: Cache node_modules
-        uses: actions/cache@v2
+            cmd: install # will run `yarn install` command
+      - uses: borales/actions-yarn@v2.0.0
         with:
-            path: '**/node_modules'
-            key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-      - name: Install yarn packages
-        run: yarn install
+            cmd: build # will run `yarn build` command
       - name: Install dependencies
         run: pip install -r requirements-test.txt
       - name: Add localsettings
