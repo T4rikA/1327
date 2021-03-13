@@ -3,6 +3,7 @@
 # Unit tests
 django-webtest == 1.9.7
 model-bakery == 1.2.1
+psycopg2==2.8.6
 
 # Coverage
 coveralls
