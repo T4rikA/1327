@@ -40,7 +40,8 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v2
       - name: Install yarn
-        run: curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+        run: curl -s https://dl.yarnpkg.com/debian/pubkey.gpg -o yarnpkg.gpg
+      - run: apt-key add yarnpkg.gpg
       - run: echo "deb https://dl.yarnpkg.com/debian/ stable main" >> /etc/apt/sources.list.d/yarn.list
       - run: apt-get -q install -y yarn
       - name: Install yarn dependencies
