@@ -40,7 +40,7 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v2
       - name: Add package.json
-        run: cp _1327/static/package.json /
+        run: cp _1327/static/package.json /github/workspace
       - uses: borales/actions-yarn@v2.0.0
         with:
             cmd: install # will run `yarn install` command
