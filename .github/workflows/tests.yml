@@ -11,14 +11,14 @@ jobs:
     runs-on: ubuntu-18.04
 
     container:
-      image: python:3.7
+      image: python:3.6.9
 
     services:
       postgres:
         image: postgres
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: 1327
+          POSTGRES_PASSWORD: 1327
           POSTGRES_DB: 1327
         ports:
           - 5432:5432
@@ -39,7 +39,5 @@ jobs:
         uses: actions/checkout@v2
       - name: Install dependencies
         run: pip install -r requirements-test.txt
-      - name: Add localsettings
-        run: cp _1327/settings.py _1327/localsettings.py
       - name: Run tests
         run: ${{ matrix.command }}
