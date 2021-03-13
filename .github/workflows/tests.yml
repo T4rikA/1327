@@ -39,5 +39,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Install dependencies
         run: pip install -r requirements-test.txt
+      - name: Add localsettings
+          run: cp .github/workflows/settings_test.py _1327/localsettings.py
       - name: Run tests
         run: ${{ matrix.command }}
